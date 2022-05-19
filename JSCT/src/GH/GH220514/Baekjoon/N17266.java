@@ -49,20 +49,15 @@ public class N17266 {
             x[i] = Integer.parseInt(st.nextToken());
         }
 
-        while (true){
-            if(x[0] - result <= 0) {
-                for (int i = 1; i < m; i++){
-                    int len = ((x[i] - x[i-1])/2) + ((x[i] - x[i-1])%2);
-                    if (len > result) result += len;
-                    if (i == m-1)
-                        if ((x[i]+result) < n) result = n-x[i];
-                }
-                if (m == 1){
-                    result = Math.max(n - x[0], x[0]);
-                }
-                break;
-            }
-            result++;
+        result = x[0];
+        for (int i = 1; i < m; i++){
+            int len = ((x[i] - x[i-1])/2) + ((x[i] - x[i-1])%2);
+            if (len > result) result += len;
+            if (i == m-1)
+                if ((x[i]+result) < n) result = n-x[i];
+        }
+        if (m == 1){
+            result = Math.max(n - x[0], x[0]);
         }
 
         sb.append(result);
