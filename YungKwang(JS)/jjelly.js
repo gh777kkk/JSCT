@@ -3,8 +3,8 @@ const input = (process.platform === "linux" ?
 fs.readFileSync("/dev/stdin").toString() : 
 `3
 3 1 10
-1 5 4
-3 1 -1`).trim().split("\n");
+1 5 1
+3 2 -1`).trim().split("\n");
 
 const size = Number(input.shift());
 const map = input.slice();
@@ -16,31 +16,8 @@ for(const m of map){
 const start = map2[0][0]
 let num = start
 console.log(check(num, 0))
-// check(num, 0)
-
-
-// function check(y, x){
-//     let result = 'Hing'
-//     while(y){
-//         if(y >= size){
-//             y--
-//             x++
-//             continue;  
-//         } 
-//         if(x >= size) break;
-//         if(map2[y][x] === -1){
-//             result = 'HaruHaru'
-//             break;
-//         }
-//         check(y+map2[y][x], x)
-//         y--
-//         x++
-//     }
-//     return result
-// }
 
 function check(y, x){
-    // console.log(y,x, "#@#")
     while(y>=size){
         y--
         x++
@@ -49,21 +26,7 @@ function check(y, x){
         return 'Hing'
     }
     if(map2[y][x] === -1) {
-        console.log("!!!!!!") 
         return 'HaruHaru'
     }
-    // console.log(y,x, map2[y][x])
-    check(y+map2[y][x], x)
-    // y--
-    // x++
-    return 'Hing'
-}
-
-// console.log(test(true))
-
-function test(a){
-    if(a){
-        return 'test2'
-    }
-    return 'test1'
+    return check(y+map2[y][x], x)
 }

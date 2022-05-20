@@ -12,4 +12,3 @@ for(const [index, value] of rope.entries()){
 }
 
 console.log(max)
-
