@@ -1,0 +1,80 @@
+import java.io.InputStreamReader;
+import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Scanner;
+import java.util.stream.Collectors;
+
+/**
+ * 1920 백준
+ * Binary Search (이분 탐색)
+ * time complexity : O(logN)
+ *
+ */
+public class 수찾기_1902 {
+
+  public static void main(String[] args) {
+    //InputStreamReader isr = new InputStreamReader(System.in);
+    Scanner sc = new Scanner(System.in);
+    int n = sc.nextInt();
+    int[] a = new int[n];
+    // a 리스트 생성
+    for (int i = 0; i < n; i++) {
+      a[i] = sc.nextInt();
+    }
+    Arrays.sort(a); // 이분 탐색을 위해 정렬
+
+    // m 개의 개수 리스트 생성
+    int m = sc.nextInt();
+    int[] list = new int[m];
+    for (int i = 0; i < m; i++) {
+      list[i] = sc.nextInt();
+    }
+
+    // 리스트 비교 이분 탐색
+    int[] answer = new int[m];
+    for (int i = 0; i < m; i++) {
+      if (findByBinarySearch(a, list[i])) answer[i] = 1;
+    }
+    //System.out.println(Arrays.toString(answer));
+
+    /**
+     * Box Integer[] -> List<Integer>
+     * List<Integer> list1 = Arrays.stream(arr).boxed().collect(Collectors.toList());
+     * List<Integer> list2 = IntStream.of(arr).boxed().collect(Collectors.toList());
+     */
+    Arrays.stream(answer).forEach(i -> System.out.println(i));
+  }
+
+  /**
+   * 이분 탐색으로 완탐을 하지 않고 효율적으로 탐색
+   *
+   * @param a
+   * @param n
+   * @return
+   */
+  public static boolean findByBinarySearch(int[] a, int n) {
+    int max = a.length-1; // index 로 찾기
+    int min = 0;
+    /**
+     * 1. 중간 인덱스를 구한다
+     * 2. 중간값과 key값을 비교한다.
+     * 3. 비교값에 따라 범위를 왼쪽, 오른쪽 혹은 값이 같은 경우는 해당 인덱스를 반환한다.
+     */
+    while (min <= max) {
+      int temp = (max + min) / 2;
+      if (a[temp] == n) { //중간 값과 같을때
+        return true;
+      } else if (a[temp] > n){ // key 값이 중간의 위치 보다 작을때
+        max = temp - 1;
+        /**
+         * max/ min 이 temp 가 되면 무한 루프 생성
+         *  ex. max = 4 min= 1 temp = 1
+         */
+      } else { // key 값이 중간의 위치보다 클 때
+        min= temp + 1;
+      }
+    }
+    return false;
+  }
+}
