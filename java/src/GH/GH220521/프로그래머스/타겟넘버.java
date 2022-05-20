@@ -12,6 +12,7 @@ public class 타겟넘버 {
         return result;
     }
 
+    // idx 배열의 번호 , sum idx의 합계
     private static void dfs (int[] n, int target, int idx, int sum){
         if (idx >= n.length){
             if (sum == target) result++;
@@ -19,9 +20,9 @@ public class 타겟넘버 {
         }
 
         int add = sum + n[idx];
-        dfs (n, target, idx+1, add);
+        dfs (n, target, idx+1, add); // 각 배열 idx 를 + 로 가정하고 계산
 
         int sub = sum - n[idx];
-        dfs (n, target, idx+1, sub);
+        dfs (n, target, idx+1, sub); // 각 배열 idx 를 - 로 가정하고 계산
     }
 }
