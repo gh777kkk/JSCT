@@ -12,7 +12,7 @@ const input = (() => {  //input()을 호출할 때마다 한줄씩 읽어온다.
 
 let [aCount,bCount] = input().split(' ');
 let aList = new Set();
-let bList = new Set();
+let bList = new Set(); // Set을 이용하면 중복값을 자동으로 제거해주고 item이 있는지 확인하는 함수가 있다
 let result = [];
 
 for(let i = 0; i < aCount; i++ ){
@@ -29,6 +29,6 @@ bList.forEach((item) => {
 })
 answer.sort();
 
-result.sort();
 console.log(answer.length);
 console.log(answer.join("\n"));
+// 다른 방법으로는 이분탐색을 이용해서 진행할 수가 있습니다
