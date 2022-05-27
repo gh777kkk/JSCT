@@ -25,7 +25,6 @@ public class B2583 {
     private static int[][] list;
     private static int m;
     private static int n;
-    private static int resultCnt;
     private static int cnt;
     public static void main (String[] arg) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -56,24 +55,13 @@ public class B2583 {
             }
         }
 
-        System.out.println("최초의 영역");
-        for (int i = m-1; i >= 0; i--){
-            for (int j = 0; j < n; j++){
-                System.out.print(list[i][j]);
-            }
-            System.out.println();
-        }
-        System.out.println();
-        System.out.println();
-
         for (int i = 0; i < m; i++){
             for (int j = 0; j < n; j++){
                 if (list[i][j] == 0) {
                     result++;
-                    cnt = 1;
+                    cnt = 0;
                     check(i,j);
-                    listCnt.add(resultCnt);
-                    resultCnt = 0;
+                    listCnt.add(cnt);
                 }
             }
         }
@@ -93,33 +81,11 @@ public class B2583 {
 
     private static void check(int x, int y){
         list[x][y] = 1;
+        cnt++;
 
-        for (int i = m-1; i >= 0; i--){
-            for (int j = 0; j < n; j++){
-                System.out.print(list[i][j]);
-            }
-            System.out.println();
-        }
-        System.out.println(cnt);
-        System.out.println();
-        System.out.println();
-
-        if (x < m-1 && (list[x+1][y] == 0) ) {
-            cnt++;
-            check(x+1,y);
-        }
-        if (x > 0 && (list[x-1][y] == 0) ) {
-            cnt++;
-            check(x-1,y);
-        }
-        if (y < n-1 && (list[x][y+1] == 0) ) {
-            cnt++;
-            check(x,y+1);
-        }
-        if (y > 0 && (list[x][y-1] == 0) ) {
-            cnt++;
-            check(x,y-1);
-        }
-        resultCnt = Math.max(resultCnt, cnt);
+        if (x < m-1 && (list[x+1][y] == 0) ) check(x+1,y);
+        if (x > 0 && (list[x-1][y] == 0) ) check(x-1,y);
+        if (y < n-1 && (list[x][y+1] == 0) ) check(x,y+1);
+        if (y > 0 && (list[x][y-1] == 0) ) check(x,y-1);
     }
 }
