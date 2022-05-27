@@ -26,6 +26,7 @@ public class B2583 {
     private static int m;
     private static int n;
     private static int resultCnt;
+    private static int cnt;
     public static void main (String[] arg) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
@@ -69,7 +70,8 @@ public class B2583 {
             for (int j = 0; j < n; j++){
                 if (list[i][j] == 0) {
                     result++;
-                    check(i,j,1);
+                    cnt = 1;
+                    check(i,j);
                     listCnt.add(resultCnt);
                     resultCnt = 0;
                 }
@@ -89,7 +91,7 @@ public class B2583 {
         bw.close();
     }
 
-    private static void check(int x, int y, int cnt){
+    private static void check(int x, int y){
         list[x][y] = 1;
 
         for (int i = m-1; i >= 0; i--){
@@ -102,10 +104,22 @@ public class B2583 {
         System.out.println();
         System.out.println();
 
-        if (x < m-1 && (list[x+1][y] == 0) ) check(x+1,y,++cnt);
-        if (x > 0 && (list[x-1][y] == 0) ) check(x-1,y,++cnt);
-        if (y < n-1 && (list[x][y+1] == 0) ) check(x,y+1,++cnt);
-        if (y > 0 && (list[x][y-1] == 0) ) check(x,y-1,++cnt);
+        if (x < m-1 && (list[x+1][y] == 0) ) {
+            cnt++;
+            check(x+1,y);
+        }
+        if (x > 0 && (list[x-1][y] == 0) ) {
+            cnt++;
+            check(x-1,y);
+        }
+        if (y < n-1 && (list[x][y+1] == 0) ) {
+            cnt++;
+            check(x,y+1);
+        }
+        if (y > 0 && (list[x][y-1] == 0) ) {
+            cnt++;
+            check(x,y-1);
+        }
         resultCnt = Math.max(resultCnt, cnt);
     }
 }
