@@ -11,7 +11,7 @@ const input = (() => {  //input()을 호출할 때마다 한줄씩 읽어온다.
 })(); 
 
 const [lineCount, brandCount] = input().split(' ').map(v => Number(v));
-const setCount = Math.ceil(lineCount / 6);
+const setCount = Math.floor(lineCount / 6);
 const remainder = lineCount % 6;
 let minSetPrice = 1000;
 let minEachPrice = 1000;
@@ -22,7 +22,7 @@ for(let i = 0; i < brandCount; i++){
     minEachPrice = Math.min(one, minEachPrice);
 }
 
-const combination = (minSetPrice * (setCount -1)) + (remainder * minEachPrice) ;
-const result = Math.min(minSetPrice * setCount, minEachPrice * lineCount, combination);
+const combination = (minSetPrice * setCount) + (remainder * minEachPrice) ;
+const result = Math.min(minSetPrice * (setCount + 1), minEachPrice * lineCount, combination);
 
 console.log(result); // 결과 값 출력
