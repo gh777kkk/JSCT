@@ -12,5 +12,8 @@ int main(){
         result++;
     }
 
-    cout << result;
+    if(result != 0)
+        cout << result;
+    else
+        cout << "-1";
 }
