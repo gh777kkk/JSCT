@@ -1,8 +1,5 @@
 const input = require('fs').readFileSync('/dev/stdin').toString().trim().split('\n');
-
-
 const [M, N, K] = input.shift().split(' ');
-
 
 // 세로 M, 가로 N 짜리 0으로 채워진 이차원 배열 만들기.
 
