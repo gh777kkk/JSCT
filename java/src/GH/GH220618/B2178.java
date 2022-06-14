@@ -18,12 +18,15 @@ package GH.GH220618;
 //        첫째 줄에 지나야 하는 최소의 칸 수를 출력한다. 항상 도착위치로 이동할 수 있는 경우만 입력으로 주어진다.
 
 import java.io.*;
+import java.util.LinkedList;
+import java.util.Queue;
 import java.util.StringTokenizer;
 
 public class B2178 {
     private static int n;
     private static int m;
-    private static int min;
+    private static boolean[][] visit;
+    private static int[][] list;
     public static void main (String[] arg) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
@@ -34,7 +37,8 @@ public class B2178 {
         n = Integer.parseInt(st.nextToken());
         m = Integer.parseInt(st.nextToken());
 
-        int[][] list = new int[n][m];
+        list = new int[n][m];
+        visit = new boolean[n][m];
 
         for (int i = 0; i < n; i++){
             String line = br.readLine();
@@ -43,8 +47,9 @@ public class B2178 {
             }
         }
 
-        dfs(0,0,1,list);
-        sb.append(min);
+        bfs(0,0);
+
+        sb.append(list[n-1][m-1]);
 
         bw.write(sb.toString());
         bw.flush();
@@ -52,27 +57,34 @@ public class B2178 {
         bw.close();
     }
 
-    private static void dfs (int x, int y, int idx, int[][] list) {
-        if (x == n-1 && y == m-1) {
-            if (min == 0) min = idx;
-            min = Math.min(min, idx);
-            return;
-        }
+    private static void bfs (int x, int y) {
+        Queue<int[]> q = new LinkedList<>();        // java 에서 bfs 를 구현할때 보통 queue 를 이용한다.
+        q.add(new int[] {x,y});
 
-        if (min!=0 && idx >= min) return;
-        if (list[x][y] == 0) return;
-        list[x][y] = 0;
-
-        int[][] new_list = new int[n][m];
-        for (int i = 0; i < n; i++){
-            for (int j = 0; j < m; j++){
-                new_list[i][j] = list[i][j];
+        while (!q.isEmpty()){
+            int[] location = q.poll();
+            x = location[0];
+            y = location[1];
+            if (x < n-1 && list[x+1][y] != 0 && !visit[x+1][y]) {
+                q.add(new int[] {x+1,y});
+                list[x+1][y] = list[x][y]+1;
+                visit[x+1][y] = true;
+            }
+            if (y < m-1 && list[x][y+1] != 0 && !visit[x][y+1]) {
+                q.add(new int[] {x,y+1});
+                list[x][y+1] = list[x][y]+1;
+                visit[x][y+1] = true;
+            }
+            if (x > 0 && list[x-1][y] != 0 && !visit[x-1][y]) {
+                q.add(new int[] {x-1,y});
+                list[x-1][y] = list[x][y]+1;
+                visit[x-1][y] = true;
+                            }
+            if (y > 0 && list[x][y-1] != 0 && !visit[x][y-1]) {
+                q.add(new int[] {x,y-1});
+                list[x][y-1] = list[x][y]+1;
+                visit[x][y-1] = true;
             }
         }
-
-        if (x < n-1) dfs(x+1 , y, idx+1,new_list);
-        if (y < m-1) dfs(x , y+1, idx+1,new_list);
-        if (x > 0) dfs(x-1 , y , idx+1,new_list);
-        if (y > 0) dfs(x , y-1, idx+1,new_list);
     }
 }
