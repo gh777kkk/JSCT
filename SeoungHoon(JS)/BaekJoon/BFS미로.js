@@ -104,4 +104,3 @@ while (queue.length > 0) {
 }
 
 console.log(count); // 초기 로직
-for (let i = 0; i < rowMax; i++){
