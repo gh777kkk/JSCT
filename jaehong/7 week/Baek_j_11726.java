@@ -16,7 +16,7 @@ public class Baek_j_11726 {
         dp[1] = 2;
 
         for(int i = 2; i <= N; i++){
-            dp[i] = (dp[i-1] + dp[i-2]);
+            dp[i] = (dp[i-1] + dp[i-2])%10007;
         }
 
         bw.write(dp[N-1]%10007+"");
