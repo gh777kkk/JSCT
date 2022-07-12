@@ -24,7 +24,7 @@ public class Baek_j_16401 {
         Arrays.sort(input);
 
         int result = 0;
-        int start = 0;
+        int start = 1;
         int end = input[N-1];
 
         while(start <= end){
