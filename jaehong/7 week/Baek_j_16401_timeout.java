@@ -4,7 +4,7 @@ import java.io.*;
 import java.util.Arrays;
 import java.util.StringTokenizer;
 
-public class Baek_j_16401 {
+public class Baek_j_16401_timeout {
     public static void main(String[] args) throws IOException {
 
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -23,24 +23,19 @@ public class Baek_j_16401 {
 
         Arrays.sort(input);
 
-        int result = 0;
-        int start = 1;
-        int end = input[N-1];
+        int result = input[N-1];
 
-        while(start <= end){
+        while(true){
             int cnt = 0;
-            int mid = (start+end)/2;
 
-            for(int i = 0; i < N; i++){
-                cnt += input[i]/mid;
+            for(int i = N-1; i >= 0; i--){
+                if(input[i] < result) break;
+                cnt += input[i]/result;
             }
 
-            if(cnt >= nephewCnt) {
-                if(result < mid) result = mid;
-                start = mid+1;
-            }
-            else end = mid-1;
+            if(cnt == nephewCnt) break;
 
+            result--;
         }
 
         bw.write(result+"");
